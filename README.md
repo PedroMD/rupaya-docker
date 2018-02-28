@@ -19,7 +19,7 @@ $ mkdir /home/youruser/rupaya_data
 $ PASSWORD=$(date +%s | sha256sum | base64 | head -c 60)
 $ cat > rupaya.env <<EOF
 RPCUSER=rupxrpcuser
-|PASSWORD|
+RPCPASSWORD=${PASSWORD}
 EOF
 
 # Run the Daemon with the .env file
@@ -30,8 +30,8 @@ $ docker container run -d --name rupayad --env-file rupaya.env \
 
 # Alternatively, you can pass the environment variables in the run command
 $ docker container run -d --name rupayad \
-   --env 'RPCUSER=foo' \
-   --env 'RPCPASSWORD=password' \
+   --env 'RPCUSER=rupxrpcuser' \
+   --env 'RPCPASSWORD=${PASSWORD}' \
    -p 9020:9020 \
    -v /home/youruser/rupaya_data:/rupaya \
    palobo/rupaya/rupayad-4.0
